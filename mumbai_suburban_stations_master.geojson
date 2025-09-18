@@ -1,0 +1,516 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.827,
+          18.9353
+        ]
+      },
+      "properties": {
+        "name": "Churchgate",
+        "code": "CCG",
+        "line": "Western",
+        "platforms": 5.0,
+        "accessibility": "Yes",
+        "parking": "Limited",
+        "last_mile_options": "Bus, Taxi, Auto"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": null,
+      "properties": {
+        "name": "Marine Lines",
+        "code": "MEL",
+        "line": "Western",
+        "platforms": NaN,
+        "accessibility": null,
+        "parking": null,
+        "last_mile_options": null
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": null,
+      "properties": {
+        "name": "Charni Road",
+        "code": "CYR",
+        "line": "Western",
+        "platforms": NaN,
+        "accessibility": null,
+        "parking": null,
+        "last_mile_options": null
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": null,
+      "properties": {
+        "name": "Grant Road",
+        "code": "GTR",
+        "line": "Western",
+        "platforms": NaN,
+        "accessibility": null,
+        "parking": null,
+        "last_mile_options": null
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8194,
+          18.969
+        ]
+      },
+      "properties": {
+        "name": "Mumbai Central",
+        "code": "BCT",
+        "line": "Western",
+        "platforms": 9.0,
+        "accessibility": "Yes",
+        "parking": "Available",
+        "last_mile_options": "Bus, Taxi, Auto, Metro"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8421,
+          19.0183
+        ]
+      },
+      "properties": {
+        "name": "Dadar WR",
+        "code": "DDR",
+        "line": "Western",
+        "platforms": 7.0,
+        "accessibility": "Yes",
+        "parking": "Available",
+        "last_mile_options": "Bus, Taxi, Auto, Metro"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.84,
+          19.0546
+        ]
+      },
+      "properties": {
+        "name": "Bandra",
+        "code": "BA",
+        "line": "Western",
+        "platforms": 8.0,
+        "accessibility": "Yes",
+        "parking": "Available",
+        "last_mile_options": "Bus, Taxi, Auto, Metro"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8468,
+          19.1197
+        ]
+      },
+      "properties": {
+        "name": "Andheri",
+        "code": "ADH",
+        "line": "Western",
+        "platforms": 9.0,
+        "accessibility": "Yes",
+        "parking": "Available",
+        "last_mile_options": "Bus, Taxi, Auto, Metro"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8567,
+          19.2307
+        ]
+      },
+      "properties": {
+        "name": "Borivali",
+        "code": "BVI",
+        "line": "Western",
+        "platforms": 10.0,
+        "accessibility": "Yes",
+        "parking": "Available",
+        "last_mile_options": "Bus, Taxi, Auto, Metro"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.833,
+          19.3732
+        ]
+      },
+      "properties": {
+        "name": "Vasai Road",
+        "code": "BSR",
+        "line": "Western",
+        "platforms": 7.0,
+        "accessibility": "Yes",
+        "parking": "Available",
+        "last_mile_options": "Bus, Taxi, Auto"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8117,
+          19.455
+        ]
+      },
+      "properties": {
+        "name": "Virar",
+        "code": "VR",
+        "line": "Western",
+        "platforms": 8.0,
+        "accessibility": "Yes",
+        "parking": "Available",
+        "last_mile_options": "Bus, Taxi, Auto"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8358,
+          18.9402
+        ]
+      },
+      "properties": {
+        "name": "CSMT",
+        "code": "CSMT",
+        "line": "Central",
+        "platforms": 18.0,
+        "accessibility": "Yes",
+        "parking": "Available",
+        "last_mile_options": "Bus, Taxi, Auto, Metro"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": null,
+      "properties": {
+        "name": "Byculla",
+        "code": "BY",
+        "line": "Central",
+        "platforms": NaN,
+        "accessibility": null,
+        "parking": null,
+        "last_mile_options": null
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8421,
+          19.0183
+        ]
+      },
+      "properties": {
+        "name": "Dadar CR",
+        "code": "DR",
+        "line": "Central",
+        "platforms": 8.0,
+        "accessibility": "Yes",
+        "parking": "Available",
+        "last_mile_options": "Bus, Taxi, Auto, Metro"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8796,
+          19.0726
+        ]
+      },
+      "properties": {
+        "name": "Kurla",
+        "code": "C",
+        "line": "Central",
+        "platforms": 8.0,
+        "accessibility": "Yes",
+        "parking": "Available",
+        "last_mile_options": "Bus, Taxi, Auto, Metro"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.975,
+          19.186
+        ]
+      },
+      "properties": {
+        "name": "Thane",
+        "code": "TNA",
+        "line": "Central",
+        "platforms": 10.0,
+        "accessibility": "Yes",
+        "parking": "Available",
+        "last_mile_options": "Bus, Taxi, Auto, Metro"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.135,
+          19.243
+        ]
+      },
+      "properties": {
+        "name": "Kalyan",
+        "code": "KYN",
+        "line": "Central",
+        "platforms": 8.0,
+        "accessibility": "Yes",
+        "parking": "Available",
+        "last_mile_options": "Bus, Taxi, Auto"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": null,
+      "properties": {
+        "name": "Kasara",
+        "code": "KSRA",
+        "line": "Central",
+        "platforms": NaN,
+        "accessibility": null,
+        "parking": null,
+        "last_mile_options": null
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": null,
+      "properties": {
+        "name": "Karjat",
+        "code": "KJT",
+        "line": "Central",
+        "platforms": NaN,
+        "accessibility": null,
+        "parking": null,
+        "last_mile_options": null
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8358,
+          18.9402
+        ]
+      },
+      "properties": {
+        "name": "CSMT",
+        "code": "CSMT",
+        "line": "Harbour",
+        "platforms": 18.0,
+        "accessibility": "Yes",
+        "parking": "Available",
+        "last_mile_options": "Bus, Taxi, Auto, Metro"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": null,
+      "properties": {
+        "name": "Dockyard Road",
+        "code": "DKRD",
+        "line": "Harbour",
+        "platforms": NaN,
+        "accessibility": null,
+        "parking": null,
+        "last_mile_options": null
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": null,
+      "properties": {
+        "name": "Wadala Road",
+        "code": "WDLR",
+        "line": "Harbour",
+        "platforms": NaN,
+        "accessibility": null,
+        "parking": null,
+        "last_mile_options": null
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8796,
+          19.0726
+        ]
+      },
+      "properties": {
+        "name": "Kurla",
+        "code": "C",
+        "line": "Harbour",
+        "platforms": 8.0,
+        "accessibility": "Yes",
+        "parking": "Available",
+        "last_mile_options": "Bus, Taxi, Auto, Metro"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": null,
+      "properties": {
+        "name": "Vashi",
+        "code": "VSH",
+        "line": "Harbour",
+        "platforms": 4.0,
+        "accessibility": "Yes",
+        "parking": "Available",
+        "last_mile_options": "Bus, Taxi, Auto"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": null,
+      "properties": {
+        "name": "Belapur",
+        "code": "BEPR",
+        "line": "Harbour",
+        "platforms": 6.0,
+        "accessibility": "Yes",
+        "parking": "Available",
+        "last_mile_options": "Bus, Taxi, Auto"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.1175,
+          18.9894
+        ]
+      },
+      "properties": {
+        "name": "Panvel",
+        "code": "PNVL",
+        "line": "Harbour",
+        "platforms": 7.0,
+        "accessibility": "Yes",
+        "parking": "Available",
+        "last_mile_options": "Bus, Taxi, Auto"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.975,
+          19.186
+        ]
+      },
+      "properties": {
+        "name": "Thane",
+        "code": "TNA",
+        "line": "Trans-Harbour",
+        "platforms": 10.0,
+        "accessibility": "Yes",
+        "parking": "Available",
+        "last_mile_options": "Bus, Taxi, Auto, Metro"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": null,
+      "properties": {
+        "name": "Kopar Khairane",
+        "code": "KPHN",
+        "line": "Trans-Harbour",
+        "platforms": NaN,
+        "accessibility": null,
+        "parking": null,
+        "last_mile_options": null
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": null,
+      "properties": {
+        "name": "Vashi",
+        "code": "VSH",
+        "line": "Trans-Harbour",
+        "platforms": 4.0,
+        "accessibility": "Yes",
+        "parking": "Available",
+        "last_mile_options": "Bus, Taxi, Auto"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": null,
+      "properties": {
+        "name": "Nerul",
+        "code": "NEU",
+        "line": "Trans-Harbour",
+        "platforms": NaN,
+        "accessibility": null,
+        "parking": null,
+        "last_mile_options": null
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.1175,
+          18.9894
+        ]
+      },
+      "properties": {
+        "name": "Panvel",
+        "code": "PNVL",
+        "line": "Trans-Harbour",
+        "platforms": 7.0,
+        "accessibility": "Yes",
+        "parking": "Available",
+        "last_mile_options": "Bus, Taxi, Auto"
+      }
+    }
+  ]
+}

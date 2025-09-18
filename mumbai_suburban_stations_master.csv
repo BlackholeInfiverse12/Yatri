@@ -1,0 +1,32 @@
+name,code,line,lat,lon,platforms,accessibility,parking,last_mile_options
+Churchgate,CCG,Western,18.9353,72.827,5.0,Yes,Limited,"Bus, Taxi, Auto"
+Marine Lines,MEL,Western,,,,,,
+Charni Road,CYR,Western,,,,,,
+Grant Road,GTR,Western,,,,,,
+Mumbai Central,BCT,Western,18.969,72.8194,9.0,Yes,Available,"Bus, Taxi, Auto, Metro"
+Dadar WR,DDR,Western,19.0183,72.8421,7.0,Yes,Available,"Bus, Taxi, Auto, Metro"
+Bandra,BA,Western,19.0546,72.84,8.0,Yes,Available,"Bus, Taxi, Auto, Metro"
+Andheri,ADH,Western,19.1197,72.8468,9.0,Yes,Available,"Bus, Taxi, Auto, Metro"
+Borivali,BVI,Western,19.2307,72.8567,10.0,Yes,Available,"Bus, Taxi, Auto, Metro"
+Vasai Road,BSR,Western,19.3732,72.833,7.0,Yes,Available,"Bus, Taxi, Auto"
+Virar,VR,Western,19.455,72.8117,8.0,Yes,Available,"Bus, Taxi, Auto"
+CSMT,CSMT,Central,18.9402,72.8358,18.0,Yes,Available,"Bus, Taxi, Auto, Metro"
+Byculla,BY,Central,,,,,,
+Dadar CR,DR,Central,19.0183,72.8421,8.0,Yes,Available,"Bus, Taxi, Auto, Metro"
+Kurla,C,Central,19.0726,72.8796,8.0,Yes,Available,"Bus, Taxi, Auto, Metro"
+Thane,TNA,Central,19.186,72.975,10.0,Yes,Available,"Bus, Taxi, Auto, Metro"
+Kalyan,KYN,Central,19.243,73.135,8.0,Yes,Available,"Bus, Taxi, Auto"
+Kasara,KSRA,Central,,,,,,
+Karjat,KJT,Central,,,,,,
+CSMT,CSMT,Harbour,18.9402,72.8358,18.0,Yes,Available,"Bus, Taxi, Auto, Metro"
+Dockyard Road,DKRD,Harbour,,,,,,
+Wadala Road,WDLR,Harbour,,,,,,
+Kurla,C,Harbour,19.0726,72.8796,8.0,Yes,Available,"Bus, Taxi, Auto, Metro"
+Vashi,VSH,Harbour,,,4.0,Yes,Available,"Bus, Taxi, Auto"
+Belapur,BEPR,Harbour,,,6.0,Yes,Available,"Bus, Taxi, Auto"
+Panvel,PNVL,Harbour,18.9894,73.1175,7.0,Yes,Available,"Bus, Taxi, Auto"
+Thane,TNA,Trans-Harbour,19.186,72.975,10.0,Yes,Available,"Bus, Taxi, Auto, Metro"
+Kopar Khairane,KPHN,Trans-Harbour,,,,,,
+Vashi,VSH,Trans-Harbour,,,4.0,Yes,Available,"Bus, Taxi, Auto"
+Nerul,NEU,Trans-Harbour,,,,,,
+Panvel,PNVL,Trans-Harbour,18.9894,73.1175,7.0,Yes,Available,"Bus, Taxi, Auto"
