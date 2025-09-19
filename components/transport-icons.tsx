@@ -1,4 +1,4 @@
-import { Train, Bus, Zap, Car, MapPin } from "lucide-react"
+import { Train, Bus, Zap, Car, MapPin, ArrowRight } from "lucide-react"
 
 export const TransportIcons = {
   train: Train,
@@ -7,6 +7,7 @@ export const TransportIcons = {
   monorail: Train,
   auto: Car,
   walk: MapPin,
+  transfer: ArrowRight,
 }
 
 export function TransportIcon({ type, className }: { type: keyof typeof TransportIcons; className?: string }) {

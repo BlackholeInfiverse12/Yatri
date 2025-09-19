@@ -30,6 +30,7 @@ export interface Route {
   transfers: number
   walkingDistance: number
   steps: RouteStep[]
+  path?: string[]
   delay?: number
   crowdLevel?: "low" | "medium" | "high"
 }
@@ -144,56 +145,29 @@ function RouteCard({
           </div>
         </div>
 
-        {/* Route Steps */}
-        <div className="space-y-3">
-          {route.steps.map((step, index) => (
-            <div key={index} className="flex items-center gap-3">
-              <div className={`p-2 rounded-lg border ${TRANSPORT_COLORS[step.mode]}`}>
-                <TransportIcon type={step.mode} className="h-4 w-4" />
-              </div>
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2">
-                  <span className="text-sm font-medium truncate">{step.from}</span>
-                  <ArrowRight className="h-3 w-3 text-muted-foreground flex-shrink-0" />
-                  <span className="text-sm font-medium truncate">{step.to}</span>
-                </div>
-                <div className="flex items-center gap-3 text-xs text-muted-foreground">
-                  {step.line && <span className="font-medium">{step.line}</span>}
-                  <span>{formatDuration(step.duration)}</span>
-                  {step.distance && <span>{formatDistance(step.distance)}</span>}
-                  {step.cost && <span>₹{step.cost}</span>}
-                </div>
-              </div>
-            </div>
-          ))}
+        {/* Consolidated Path */}
+        <div className="mb-2">
+          <div className="text-sm text-center mb-1">Path</div>
+          <div className="text-xs">
+            {route.steps.reduce((acc: string, step: any, index: number) => {
+              if (step.mode === "transfer") return acc;
+              return acc + (index > 0 ? " → " : "") + step.from + (step.line ? ` (${step.line})` : "");
+            }, route.steps[0].from)}
+          </div>
         </div>
 
-        {/* Additional Info */}
-        <div className="flex items-center justify-between text-xs text-muted-foreground pt-2 border-t">
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-1">
-              <Footprints className="h-3 w-3" />
-              {formatDistance(route.walkingDistance)} walk
+        {/* Next Train Info */}
+        {route.steps.some((step: any) => step.mode === "train" && step.nextTrain) && (
+          <div className="text-xs text-muted-foreground pt-2 border-t">
+            <div className="flex gap-4">
+              {route.steps.filter((step: any) => step.mode === "train" && step.nextTrain).slice(0, 2).map((step: any, index: number) => (
+                <span key={index}>
+                  Next {step.line}: {step.nextTrain?.number} at {new Date(step.nextTrain!.nextDeparture * 60000).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
+                </span>
+              ))}
             </div>
-            {route.crowdLevel && (
-              <div className="flex items-center gap-1">
-                <div
-                  className={`w-2 h-2 rounded-full ${route.crowdLevel === "low" ? "bg-green-500" : route.crowdLevel === "medium" ? "bg-yellow-500" : "bg-red-500"}`}
-                />
-                <span className={CROWD_COLORS[route.crowdLevel]}>{route.crowdLevel} crowd</span>
-              </div>
-            )}
           </div>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="text-primary hover:text-primary/80 hover:bg-primary/10"
-            onClick={handleViewDetails}
-          >
-            <Eye className="h-3 w-3 mr-1" />
-            View Details
-          </Button>
-        </div>
+        )}
       </CardContent>
     </Card>
   )

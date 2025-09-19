@@ -88,6 +88,27 @@ function getCoordinates(locationName: string): [number, number] {
   return [MUMBAI_CENTER[0] + offset, MUMBAI_CENTER[1] + offset]
 }
 
+function getStationCoordinates(code: string): [number, number] | null {
+  const station = MUMBAI_STATIONS.find(s => s.code === code);
+  return station?.coordinates || null;
+}
+
+function formatDuration(minutes: number): string {
+  const hours = Math.floor(minutes / 60)
+  const mins = minutes % 60
+  if (hours > 0) {
+    return `${hours}h ${mins}m`
+  }
+  return `${mins}m`
+}
+
+function formatDistance(meters: number): string {
+  if (meters >= 1000) {
+    return `${(meters / 1000).toFixed(1)}km`
+  }
+  return `${meters}m`
+}
+
 export function InteractiveMap({
   routes,
   selectedRoute,
@@ -192,9 +213,9 @@ export function InteractiveMap({
       const coords = codes.map(code => {
         const station = MUMBAI_STATIONS.find(s => s.code === code);
         return station?.coordinates || MUMBAI_CENTER;
-      });
+      }).filter(c => c && Array.isArray(c) && c.length === 2) as [number, number][];
 
-      if (coords.length > 1) {
+      if (coords.length > 1 && mapInstanceRef.current) {
         const polyline = window.L.polyline(coords, {
           color: lineColors[line as keyof typeof lineColors] || "#6b7280",
           weight: 4,
@@ -243,77 +264,118 @@ export function InteractiveMap({
 
       if (!route.steps) return
 
-      const bounds = window.L.latLngBounds()
+      const bounds = window.L.latLngBounds([])
 
-      // Add route polylines and markers
-      route.steps.forEach((step: any, index: number) => {
-        const fromCoords = getCoordinates(step.from);
-        const toCoords = getCoordinates(step.to);
+      // Use path for accurate polyline if available
+      if (route.path && route.path.length > 1) {
+        const pathCoords: [number, number][] = route.path.map(code => {
+          const coords = getStationCoordinates(code)
+          return coords || MUMBAI_CENTER
+        }).filter((coords, index, arr) => index === 0 || coords[0] !== arr[index - 1][0] || coords[1] !== arr[index - 1][1]) // remove duplicates
+        if (pathCoords.length > 1) {
+          bounds.extend(pathCoords[0]);
+          bounds.extend(pathCoords[pathCoords.length - 1]);
 
-        if (!Array.isArray(fromCoords) || !Array.isArray(toCoords) || fromCoords.length < 2 || toCoords.length < 2) {
-          console.warn("Invalid coordinates for step:", step);
-          return;
+          const routeColor = route.type === "fastest" ? "#10b981" : route.type === "fewest-transfers" ? "#3b82f6" : "#f59e0b";
+
+          const polyline = window.L.polyline(pathCoords, {
+            color: routeColor,
+            weight: weight,
+            opacity: opacity,
+            dashArray: isSelected ? undefined : "5, 10",
+          }).addTo(mapInstanceRef.current);
+
+          polyline.bindTooltip(`
+            <div>${route.type.toUpperCase()} Route</div>
+            <div>${formatDuration(route.totalDuration)} • ${route.transfers} transfers</div>
+            <div>${route.walkingDistance ? formatDistance(route.walkingDistance) : ''} walk</div>
+          `);
+
+          polyline.on("click", () => {
+            onRouteSelect?.(route)
+          });
+
+          routeLayersRef.current.push(polyline);
         }
+      } else {
+        // Fallback to step coords, skip transfers for polylines
+        route.steps.forEach((step: any) => {
+          if (step.mode === "transfer") return; // no polyline for transfer
+          const fromCoords = getStationCoordinates(step.from) || getCoordinates(step.from);
+          const toCoords = getStationCoordinates(step.to) || getCoordinates(step.to);
+          if (Array.isArray(fromCoords) && Array.isArray(toCoords) && fromCoords.length >= 2 && toCoords.length >= 2 && fromCoords[0] !== toCoords[0] || fromCoords[1] !== toCoords[1]) {
+            bounds.extend(fromCoords);
+            bounds.extend(toCoords);
 
-        bounds.extend(fromCoords)
-        bounds.extend(toCoords)
+            const polyline = window.L.polyline([fromCoords, toCoords], {
+              color: step.line ? (TRANSPORT_COLORS[step.mode as keyof typeof TRANSPORT_COLORS] || "#6b7280") : "#6b7280",
+              weight: weight,
+              opacity: opacity,
+              dashArray: isSelected ? undefined : "5, 10",
+            }).addTo(mapInstanceRef.current);
 
-        const polyline = window.L.polyline([fromCoords, toCoords], {
-          color: step.line ? (TRANSPORT_COLORS[step.mode as keyof typeof TRANSPORT_COLORS] || "#6b7280") : TRANSPORT_COLORS[step.mode as keyof typeof TRANSPORT_COLORS] || "#6b7280",
-          weight: weight,
-          opacity: opacity,
-          dashArray: isSelected ? undefined : "5, 10",
-        }).addTo(mapInstanceRef.current)
+            polyline.on("click", () => {
+              onRouteSelect?.(route)
+            });
 
-        polyline.on("click", () => {
-          onRouteSelect?.(route)
-        })
+            routeLayersRef.current.push(polyline);
+          }
+        });
+      }
 
-        routeLayersRef.current.push(polyline)
+      // Markers for origin and destination if selected
+      if (isSelected) {
+        const firstStep = route.steps[0];
+        const lastStep = route.steps[route.steps.length - 1];
+        const originCoords = getStationCoordinates(firstStep.from) || getCoordinates(firstStep.from);
+        const destCoords = getStationCoordinates(lastStep.to) || getCoordinates(lastStep.to);
 
-        // Markers for selected
-        if (isSelected) {
-          const startMarker = window.L.marker(fromCoords, {
+        if (Array.isArray(originCoords)) {
+          const startMarker = window.L.marker(originCoords, {
             icon: window.L.divIcon({
-              html: `<div style="background: ${TRANSPORT_COLORS[step.mode as keyof typeof TRANSPORT_COLORS] || "#6b7280"}; color: white; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: 14px; border: 3px solid white; box-shadow: 0 3px 6px rgba(0,0,0,0.3);">${TRANSPORT_ICONS[step.mode as keyof typeof TRANSPORT_ICONS] || "📍"}</div>`,
+              html: `<div style="background: #10b981; color: white; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: 14px; border: 3px solid white; box-shadow: 0 3px 6px rgba(0,0,0,0.3);">🚆</div>`,
               className: "custom-marker",
               iconSize: [28, 28],
               iconAnchor: [14, 14],
             }),
-          }).addTo(mapInstanceRef.current)
+          }).addTo(mapInstanceRef.current);
 
-          startMarker.bindPopup(`
-            <div style="font-family: system-ui; font-size: 14px;">
-              <strong>${step.from}</strong><br/>
-              ${step.line ? `<span style="color: ${TRANSPORT_COLORS[step.mode as keyof typeof TRANSPORT_COLORS] || "#6b7280"};">${step.line}</span><br/>` : ""}
-              Duration: ${step.duration}min<br/>
-              ${step.cost ? `Cost: ₹${step.cost}` : ""}
-            </div>
-          `)
-
-          routeLayersRef.current.push(startMarker)
-
-          if (index === route.steps.length - 1) {
-            const endMarker = window.L.marker(toCoords, {
-              icon: window.L.divIcon({
-                html: `<div style="background: #ef4444; color: white; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: 14px; border: 3px solid white; box-shadow: 0 3px 6px rgba(0,0,0,0.3);">🎯</div>`,
-                className: "custom-marker",
-                iconSize: [28, 28],
-                iconAnchor: [14, 14],
-              }),
-            }).addTo(mapInstanceRef.current)
-
-            endMarker.bindPopup(`
-              <div style="font-family: system-ui; font-size: 14px;">
-                <strong>${step.to}</strong><br/>
-                <span style="color: #ef4444;">Destination</span>
-              </div>
-            `)
-
-            routeLayersRef.current.push(endMarker)
-          }
+          startMarker.bindPopup(`<strong>Start: ${firstStep.from}</strong>`);
+          routeLayersRef.current.push(startMarker);
         }
-      })
+
+        if (Array.isArray(destCoords)) {
+          const endMarker = window.L.marker(destCoords, {
+            icon: window.L.divIcon({
+              html: `<div style="background: #ef4444; color: white; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: 14px; border: 3px solid white; box-shadow: 0 3px 6px rgba(0,0,0,0.3);">🎯</div>`,
+              className: "custom-marker",
+              iconSize: [28, 28],
+              iconAnchor: [14, 14],
+            }),
+          }).addTo(mapInstanceRef.current);
+
+          endMarker.bindPopup(`<strong>Destination: ${lastStep.to}</strong>`);
+          routeLayersRef.current.push(endMarker);
+        }
+
+        // Add transfer markers
+        route.steps.forEach((step: any) => {
+          if (step.mode === "transfer") {
+            const coords = getStationCoordinates(step.from) || MUMBAI_CENTER;
+            const marker = window.L.marker(coords, {
+              icon: window.L.divIcon({
+                html: `<div style="background: #f59e0b; color: white; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 12px; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.3);">🔄</div>`,
+                className: "custom-marker",
+                iconSize: [20, 20],
+                iconAnchor: [10, 10],
+              }),
+            }).addTo(mapInstanceRef.current);
+
+            marker.bindPopup(`<strong>Transfer at ${step.from}</strong><br/>${formatDuration(step.duration)}`);
+            routeLayersRef.current.push(marker);
+          }
+        });
+      }
 
       if (isSelected && bounds.isValid()) {
         mapInstanceRef.current.fitBounds(bounds, { padding: [30, 30] })
