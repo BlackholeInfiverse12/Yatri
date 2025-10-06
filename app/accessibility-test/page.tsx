@@ -1,6 +1,7 @@
 'use client'
 
 import { AccessibilityControls } from '@/components/accessibility-controls'
+import { CSSPerformanceAnalyzer } from '@/components/css-performance-analyzer'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -35,8 +36,9 @@ export default function AccessibilityTestPage() {
 
         <div className="grid gap-6 lg:grid-cols-3">
           {/* Accessibility Controls */}
-          <div className="lg:col-span-1">
+          <div className="lg:col-span-1 space-y-6">
             <AccessibilityControls />
+            <CSSPerformanceAnalyzer />
           </div>
 
           {/* Sample UI Elements */}

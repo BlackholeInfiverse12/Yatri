@@ -1,0 +1,170 @@
+/* Search Interface Component Styles - CSS Module */
+.searchContainer {
+  padding: 1rem;
+  background-color: hsl(var(--card));
+  border-radius: 0.75rem;
+  border: 1px solid hsl(var(--border));
+}
+
+.searchTitle {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: hsl(var(--foreground));
+  margin-bottom: 0.5rem;
+}
+
+.searchSubtitle {
+  font-size: 0.875rem;
+  color: hsl(var(--muted-foreground));
+  margin-bottom: 1.5rem;
+}
+
+.inputGroup {
+  margin-bottom: 1rem;
+}
+
+.inputLabel {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: hsl(var(--foreground));
+  margin-bottom: 0.5rem;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid hsl(var(--border));
+  border-radius: 0.5rem;
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-size: 0.875rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: hsl(var(--ring));
+  box-shadow: 0 0 0 2px hsl(var(--ring) / 0.2);
+}
+
+.searchInput::placeholder {
+  color: hsl(var(--muted-foreground));
+}
+
+.searchButton {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.searchButton:hover {
+  background-color: hsl(var(--primary) / 0.9);
+}
+
+.searchButton:active {
+  transform: translateY(1px);
+}
+
+.searchButton:focus-visible {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
+}
+
+.searchButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.optionsGroup {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid hsl(var(--border));
+}
+
+.optionsTitle {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: hsl(var(--foreground));
+  margin-bottom: 0.75rem;
+}
+
+.optionItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.optionItem:hover {
+  background-color: hsl(var(--accent) / 0.5);
+}
+
+.optionCheckbox {
+  width: 1rem;
+  height: 1rem;
+}
+
+.optionLabel {
+  font-size: 0.875rem;
+  color: hsl(var(--foreground));
+  cursor: pointer;
+}
+
+/* Loading state */
+.searchButton.loading {
+  position: relative;
+  color: transparent;
+}
+
+.searchButton.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1rem;
+  height: 1rem;
+  margin: -0.5rem 0 0 -0.5rem;
+  border: 2px solid hsl(var(--primary-foreground));
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* High contrast support */
+.high-contrast .searchInput {
+  border-width: 2px;
+}
+
+.high-contrast .searchButton {
+  border: 2px solid hsl(var(--foreground));
+}
+
+/* Responsive design */
+@media (max-width: 480px) {
+  .searchContainer {
+    padding: 0.75rem;
+  }
+  
+  .searchInput,
+  .searchButton {
+    padding: 0.625rem;
+  }
+}
