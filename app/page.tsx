@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { SearchInterface } from "@/components/search-interface"
+import { EnhancedSearchInterface } from "@/components/enhanced-search-interface"
 import { Header } from "@/components/header"
 import { RouteResults } from "@/components/route-results"
 import { InteractiveMap } from "@/components/interactive-map"
@@ -64,7 +64,7 @@ export default function HomePage() {
             </div>
 
             <div className="animate-fade-in" style={{ animationDelay: "0.1s" }}>
-              <SearchInterface onSearch={handleSearch} showResults={false} />
+              <EnhancedSearchInterface onSearch={handleSearch} showResults={false} />
             </div>
           </div>
         </div>
@@ -118,7 +118,7 @@ export default function HomePage() {
         {/* Right Column - Interactive Map */}
         <div className="w-96 border-l border-border bg-card/30 backdrop-blur-sm">
           <div className="h-full animate-fade-in" style={{ animationDelay: "0.2s" }}>
-            <InteractiveMap selectedRoute={selectedRoute} routes={searchResults} className="h-full rounded-none" />
+            <InteractiveMap selectedRoute={selectedRoute || undefined} routes={searchResults || undefined} className="h-full rounded-none" />
           </div>
         </div>
       </main>

@@ -1,14 +1,17 @@
 "use client"
 
-import { Bell, MapPin, Shield, Palette, Globe, HelpCircle, ChevronRight, Accessibility } from "lucide-react"
+import { Bell, MapPin, Shield, Palette, Globe, HelpCircle, ChevronRight, Accessibility, User, MessageSquare } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Switch } from "@/components/ui/switch"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { AccessibilityControls } from "@/components/accessibility-controls"
+import { ProfileSettingsForm, NotificationSettingsForm, FeedbackForm } from "@/components/settings-forms"
 import { useState } from "react"
 
 export function SettingsPage() {
+  const [activeTab, setActiveTab] = useState("profile")
   const [notifications, setNotifications] = useState({
     delays: true,
     crowdUpdates: false,
@@ -131,57 +134,151 @@ export function SettingsPage() {
     <div className="space-y-6 p-4">
       <div className="text-center mb-6">
         <h2 className="text-2xl font-bold text-foreground mb-2">Settings</h2>
-        <p className="text-muted-foreground">Customize your Yatri experience</p>
+        <p className="text-muted-foreground">Customize your Yatri experience with validated forms</p>
       </div>
 
-      {settingSections.map((section) => {
-        const IconComponent = section.icon
-        return (
-          <Card key={section.title}>
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+        <TabsList className="grid w-full grid-cols-5">
+          <TabsTrigger value="profile" className="flex items-center gap-2">
+            <User className="h-4 w-4" />
+            Profile
+          </TabsTrigger>
+          <TabsTrigger value="notifications" className="flex items-center gap-2">
+            <Bell className="h-4 w-4" />
+            Notifications
+          </TabsTrigger>
+          <TabsTrigger value="appearance" className="flex items-center gap-2">
+            <Palette className="h-4 w-4" />
+            Appearance
+          </TabsTrigger>
+          <TabsTrigger value="journey" className="flex items-center gap-2">
+            <MapPin className="h-4 w-4" />
+            Journey
+          </TabsTrigger>
+          <TabsTrigger value="feedback" className="flex items-center gap-2">
+            <MessageSquare className="h-4 w-4" />
+            Feedback
+          </TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="profile">
+          <ProfileSettingsForm />
+        </TabsContent>
+
+        <TabsContent value="notifications">
+          <NotificationSettingsForm />
+        </TabsContent>
+
+        <TabsContent value="feedback">
+          <FeedbackForm />
+        </TabsContent>
+
+        <TabsContent value="appearance">
+          <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <IconComponent className="h-5 w-5 text-primary" />
-                {section.title}
+                <Palette className="h-5 w-5 text-primary" />
+                Appearance Settings
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              {section.items.map((item, index) => (
-                <div key={index} className="flex items-center justify-between">
-                  <div className="flex-1">
-                    <div className="font-medium">{item.label}</div>
-                    <div className="text-sm text-muted-foreground">{item.description}</div>
-                  </div>
-                  <div className="ml-4">
-                    {item.type === "switch" && (
-                      <Switch
-                        checked={item.value as boolean}
-                        onCheckedChange={item.onChange as (value: boolean) => void}
-                      />
-                    )}
-                    {item.type === "select" && (
-                      <Select value={item.value as string} onValueChange={item.onChange as (value: string) => void}>
-                        <SelectTrigger className="w-40">
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {'options' in item && item.options?.map((option: { value: string; label: string }) => (
-                            <SelectItem key={option.value} value={option.value}>
-                              {option.label}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    )}
-                  </div>
+              <div className="flex items-center justify-between">
+                <div className="flex-1">
+                  <div className="font-medium">Theme</div>
+                  <div className="text-sm text-muted-foreground">Choose your preferred theme</div>
                 </div>
-              ))}
+                <div className="ml-4">
+                  <Select value={preferences.theme} onValueChange={(value) => setPreferences(prev => ({ ...prev, theme: value }))}>
+                    <SelectTrigger className="w-40">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="light">Light</SelectItem>
+                      <SelectItem value="dark">Dark</SelectItem>
+                      <SelectItem value="system">System</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between">
+                <div className="flex-1">
+                  <div className="font-medium">Language</div>
+                  <div className="text-sm text-muted-foreground">App display language</div>
+                </div>
+                <div className="ml-4">
+                  <Select value={preferences.language} onValueChange={(value) => setPreferences(prev => ({ ...prev, language: value }))}>
+                    <SelectTrigger className="w-40">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="english">English</SelectItem>
+                      <SelectItem value="hindi">हिंदी</SelectItem>
+                      <SelectItem value="marathi">मराठी</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+
+              {/* Accessibility Controls */}
+              <div className="pt-4 border-t">
+                <AccessibilityControls />
+              </div>
             </CardContent>
           </Card>
-        )
-      })}
+        </TabsContent>
 
-      {/* Accessibility Controls */}
-      <AccessibilityControls />
+        <TabsContent value="journey">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <MapPin className="h-5 w-5 text-primary" />
+                Journey Preferences
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="flex items-center justify-between">
+                <div className="flex-1">
+                  <div className="font-medium">Maximum Transfers</div>
+                  <div className="text-sm text-muted-foreground">Default transfer limit for routes</div>
+                </div>
+                <div className="ml-4">
+                  <Select value={preferences.defaultTransfers} onValueChange={(value) => setPreferences(prev => ({ ...prev, defaultTransfers: value }))}>
+                    <SelectTrigger className="w-40">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="0">Direct routes only</SelectItem>
+                      <SelectItem value="1">1 transfer</SelectItem>
+                      <SelectItem value="2">2 transfers</SelectItem>
+                      <SelectItem value="3">3+ transfers</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between">
+                <div className="flex-1">
+                  <div className="font-medium">Walking Speed</div>
+                  <div className="text-sm text-muted-foreground">Affects walking time calculations</div>
+                </div>
+                <div className="ml-4">
+                  <Select value={preferences.walkingSpeed} onValueChange={(value) => setPreferences(prev => ({ ...prev, walkingSpeed: value }))}>
+                    <SelectTrigger className="w-40">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="slow">Slow (3 km/h)</SelectItem>
+                      <SelectItem value="normal">Normal (4 km/h)</SelectItem>
+                      <SelectItem value="fast">Fast (5 km/h)</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
 
       {/* Quick Actions */}
       <Card>
@@ -206,7 +303,7 @@ export function SettingsPage() {
 
       {/* App Info */}
       <div className="text-center text-sm text-muted-foreground">
-        <p>Yatri Mumbai Transit v1.0.0</p>
+        <p>Yatri Mumbai Transit v1.0.0 - Enhanced with Form Validation</p>
         <p>Made with ❤️ for Mumbai commuters</p>
       </div>
     </div>
