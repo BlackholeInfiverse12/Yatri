@@ -1,10 +1,11 @@
 "use client"
 
-import { Bell, MapPin, Shield, Palette, Globe, HelpCircle, ChevronRight } from "lucide-react"
+import { Bell, MapPin, Shield, Palette, Globe, HelpCircle, ChevronRight, Accessibility } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Switch } from "@/components/ui/switch"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { AccessibilityControls } from "@/components/accessibility-controls"
 import { useState } from "react"
 
 export function SettingsPage() {
@@ -163,7 +164,7 @@ export function SettingsPage() {
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
-                          {item.options?.map((option) => (
+                          {'options' in item && item.options?.map((option: { value: string; label: string }) => (
                             <SelectItem key={option.value} value={option.value}>
                               {option.label}
                             </SelectItem>
@@ -178,6 +179,9 @@ export function SettingsPage() {
           </Card>
         )
       })}
+
+      {/* Accessibility Controls */}
+      <AccessibilityControls />
 
       {/* Quick Actions */}
       <Card>
