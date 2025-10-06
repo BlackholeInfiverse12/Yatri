@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* ========================================
-   CRITICAL CSS - ABOVE THE FOLD ONLY
+   CORE CSS VARIABLES - OPTIMIZED
    ======================================== */
 
 :root {
@@ -26,6 +26,13 @@
   --input: oklch(98% 0 0);
   --ring: oklch(35% 0.12 142);
   --radius: 0.625rem;
+  
+  /* Chart colors */
+  --chart-1: oklch(55% 0.15 25);
+  --chart-2: oklch(50% 0.12 220);
+  --chart-3: oklch(40% 0.10 280);
+  --chart-4: oklch(60% 0.15 85);
+  --chart-5: oklch(45% 0.12 142);
 }
 
 .dark {
@@ -49,9 +56,16 @@
   --border: oklch(25% 0 0);
   --input: oklch(15% 0 0);
   --ring: oklch(70% 0.15 142);
+  
+  /* Chart colors for dark mode */
+  --chart-1: oklch(65% 0.18 25);
+  --chart-2: oklch(60% 0.15 220);
+  --chart-3: oklch(70% 0.12 280);
+  --chart-4: oklch(75% 0.18 85);
+  --chart-5: oklch(65% 0.15 142);
 }
 
-/* High contrast theme - loaded only when needed */
+/* High contrast theme - only load when needed */
 .high-contrast {
   --background: oklch(100% 0 0);
   --foreground: oklch(0% 0 0);
@@ -103,6 +117,11 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
   --radius-lg: var(--radius);
 }
 
@@ -117,20 +136,15 @@
   
   body {
     @apply bg-background text-foreground font-sans antialiased;
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
   }
 
-  /* Essential typography for above-the-fold */
+  /* Essential typography - only what's needed for initial render */
   h1, h2, h3 {
     @apply text-balance leading-tight;
-    margin: 0;
   }
 
   p {
     @apply leading-relaxed;
-    margin: 0;
   }
 
   /* Critical focus states */
@@ -138,7 +152,7 @@
     @apply outline-2 outline-offset-2 outline-ring;
   }
 
-  /* High contrast improvements - only when class is present */
+  /* High contrast focus improvements - only when class is present */
   .high-contrast :focus-visible {
     outline: 3px solid oklch(25% 0.2 142);
     outline-offset: 2px;
@@ -146,10 +160,15 @@
 }
 
 /* ========================================
-   ESSENTIAL LAYOUT COMPONENTS
+   ESSENTIAL COMPONENTS
    ======================================== */
 
 @layer components {
+  /* Critical button styles */
+  .btn-primary {
+    @apply bg-primary text-primary-foreground hover:bg-primary/90 transition-colors duration-200;
+  }
+
   /* Critical animations - minimal for performance */
   .animate-fade-in {
     animation: fadeIn 0.3s ease-in-out;
@@ -160,12 +179,7 @@
     to { opacity: 1; }
   }
 
-  /* Essential button styles */
-  .btn-primary {
-    @apply bg-primary text-primary-foreground hover:bg-primary/90 transition-colors duration-200;
-  }
-
-  /* Critical layout helpers */
+  /* Essential layout components */
   .main-layout {
     @apply min-h-screen bg-background;
   }
@@ -188,14 +202,5 @@
 
   .map-panel {
     @apply w-96 border-l border-border bg-card/30;
-  }
-
-  /* Essential typography */
-  .text-hierarchy-1 {
-    @apply text-2xl font-bold tracking-tight;
-  }
-
-  .text-hierarchy-2 {
-    @apply text-xl font-semibold tracking-tight;
   }
 }

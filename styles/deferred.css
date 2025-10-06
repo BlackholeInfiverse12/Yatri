@@ -1,0 +1,199 @@
+/* NON-CRITICAL STYLES - Load after initial render */
+
+@import "tw-animate-css";
+
+/* ========================================
+   ADVANCED ANIMATIONS & MICRO-INTERACTIONS
+   ======================================== */
+
+@layer components {
+  /* Advanced animations - deferred loading */
+  .animate-slide-up {
+    animation: slideUp 0.4s ease-out;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.2s ease-out;
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  /* Card hover effects */
+  .card-hover {
+    @apply transition-all duration-200 ease-in-out hover:shadow-lg hover:shadow-primary/5 hover:-translate-y-0.5;
+  }
+
+  /* Loading states */
+  .loading-shimmer {
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  /* Enhanced typography hierarchy */
+  .text-hierarchy-1 {
+    @apply text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight;
+  }
+
+  .text-hierarchy-2 {
+    @apply text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight;
+  }
+
+  .text-hierarchy-3 {
+    @apply text-lg sm:text-xl font-medium;
+  }
+}
+
+/* ========================================
+   ACCESSIBILITY ENHANCEMENTS
+   ======================================== */
+
+@layer base {
+  /* Reduced motion support - only load when needed */
+  .reduce-motion *,
+  .reduce-motion *::before,
+  .reduce-motion *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  /* System preference for reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* Custom scrollbar styling */
+  ::-webkit-scrollbar {
+    @apply w-2;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-muted/30;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-muted-foreground/20 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground/30;
+  }
+}
+
+/* ========================================
+   RESPONSIVE & UTILITY CLASSES
+   ======================================== */
+
+@layer utilities {
+  .container-responsive {
+    @apply container mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .text-responsive {
+    @apply text-sm sm:text-base;
+  }
+
+  .grid-responsive {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4;
+  }
+
+  /* Spacing system */
+  .space-section {
+    @apply py-8 sm:py-12 lg:py-16;
+  }
+
+  .space-component {
+    @apply py-4 sm:py-6;
+  }
+
+  /* High contrast utilities - only when class is present */
+  .high-contrast .hc-border {
+    @apply border-2 border-foreground;
+  }
+
+  .high-contrast .hc-shadow {
+    @apply shadow-lg;
+  }
+}
+
+/* ========================================
+   EXTENDED COLOR SCHEMES
+   ======================================== */
+
+:root {
+  /* Extended colors for specific components */
+  --success: oklch(40% 0.15 142);
+  --success-foreground: oklch(98% 0 0);
+  --warning: oklch(60% 0.15 85);
+  --warning-foreground: oklch(10% 0 0);
+  
+  /* Sidebar colors */
+  --sidebar: oklch(98% 0 0);
+  --sidebar-foreground: oklch(15% 0 0);
+  --sidebar-primary: oklch(35% 0.12 142);
+  --sidebar-primary-foreground: oklch(98% 0 0);
+  --sidebar-accent: oklch(96% 0.01 142);
+  --sidebar-accent-foreground: oklch(20% 0.02 142);
+  --sidebar-border: oklch(88% 0 0);
+  --sidebar-ring: oklch(35% 0.12 142);
+}
+
+.dark {
+  --success: oklch(65% 0.18 142);
+  --success-foreground: oklch(8% 0 0);
+  --warning: oklch(75% 0.18 85);
+  --warning-foreground: oklch(8% 0 0);
+  
+  --sidebar: oklch(10% 0 0);
+  --sidebar-foreground: oklch(95% 0 0);
+  --sidebar-primary: oklch(70% 0.15 142);
+  --sidebar-primary-foreground: oklch(8% 0 0);
+  --sidebar-accent: oklch(20% 0.02 142);
+  --sidebar-accent-foreground: oklch(85% 0 0);
+  --sidebar-border: oklch(25% 0 0);
+  --sidebar-ring: oklch(70% 0.15 142);
+}
+
+.high-contrast {
+  --success: oklch(25% 0.25 142);
+  --success-foreground: oklch(100% 0 0);
+  --warning: oklch(40% 0.25 85);
+  --warning-foreground: oklch(100% 0 0);
+}
+
+.dark.high-contrast {
+  --success: oklch(75% 0.25 142);
+  --success-foreground: oklch(0% 0 0);
+  --warning: oklch(80% 0.25 85);
+  --warning-foreground: oklch(0% 0 0);
+}
